@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 705507994}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657826, g: 0.49641263, b: 0.57481676, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -239,12 +239,12 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 162929316}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -8.99, y: 0.12, z: -9.23}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -15.5650625, y: -0.13037288, z: -12}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 662834073}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &243756558
 GameObject:
@@ -417,6 +417,7 @@ Transform:
   - {fileID: 1455275941}
   - {fileID: 243756562}
   - {fileID: 1206742733}
+  - {fileID: 162929317}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!23 &662834074
@@ -906,11 +907,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 2
   rotationSpeed: 2
-  waypointChangeDistance: 0.1
+  waypointChangeDistance: 0.3
   waypointPrefab: {fileID: 7139295546298223350, guid: 8acbcdf1f31c67f4b9d79d41a27523c4, type: 3}
   obstacleLayer:
     serializedVersion: 2
     m_Bits: 0
+  exit: {fileID: 162929316}
+  currentWaypointIndex: 0
 --- !u!135 &1289296962
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -1690,6 +1693,5 @@ SceneRoots:
   - {fileID: 893923998}
   - {fileID: 662834073}
   - {fileID: 1289296965}
-  - {fileID: 162929317}
   - {fileID: 1821025666}
   - {fileID: 5319078278492704664}

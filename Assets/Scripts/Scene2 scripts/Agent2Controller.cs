@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class Agent2Controller : MonoBehaviour
 {
-    public float moveSpeed = 2f; // Speed of the sphere's movement
+    public float moveSpeed = 6f; // Speed of the sphere's movement
     public float rotationSpeed = 2f; // Speed of rotation
     public float waypointChangeDistance = 0.1f; // Distance threshold to consider waypoint reached
     public GameObject waypointPrefab; // Prefab for waypoints
     public LayerMask obstacleLayer; // Layer mask for obstacle detection
+    public GameObject exit;
 
-    private Vector3[] waypoints = new Vector3[20]; // Array to store waypoint positions
-    private int currentWaypointIndex = 0; // Index of the current waypoint target
+    private Vector3[] waypoints = new Vector3[5]; // Array to store waypoint positions
+    public int currentWaypointIndex = 0; // Index of the current waypoint target
     private Rigidbody rb;
     private bool obstacleReached = false;
 
@@ -43,15 +44,17 @@ public class Agent2Controller : MonoBehaviour
 
     void SpawnWaypoints()
     {
-        for (int i = 0; i < waypoints.Length; i++)
+        for (int i = 0; i < waypoints.Length - 1; i++)
         {
             // Randomly generate a position for each waypoint within the plane bounds
-            Vector3 randomPosition = new Vector3(Random.Range(-2.5f, 9.5f), 0.5f, Random.Range(-10.5f, 10.5f));
+            Vector3 randomPosition = new Vector3(Random.Range(-9f, 1.5f), 0.5f, Random.Range(-8, 8f));
             // Instantiate the waypoint prefab at the random position
             Instantiate(waypointPrefab, randomPosition, Quaternion.identity);
             // Store the waypoint position in the array
             waypoints[i] = randomPosition;
         }
+        // Now add the exit as the final waypoint
+        waypoints[waypoints.Length - 1] = exit.transform.position;
     }
 
     void MoveTowardsWaypoint()
@@ -73,7 +76,15 @@ public class Agent2Controller : MonoBehaviour
 
     void RotateTowardsNextWaypoint()
     {
-        currentWaypointIndex = (currentWaypointIndex + 1) % waypoints.Length; // Move to the next waypoint
+        currentWaypointIndex = currentWaypointIndex + 1; // Move to the next waypoint
+        if(currentWaypointIndex == waypoints.Length)
+        {
+            Debug.Log("We found the goal!");
+            Destroy(this.gameObject);
+            return;
+        } else {
+            Debug.Log("Moving to waypoint " + currentWaypointIndex);
+        }
         Vector3 direction = waypoints[currentWaypointIndex] - transform.position;
         Quaternion targetRotation = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
